@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Category } from './models/category';
+import { QuestionService } from './shared/services/question.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'quiz';
+export class AppComponent implements OnInit {
+
+  constructor(private questionService: QuestionService){
+  }
+  
+  ngOnInit(): void {
+    this.questionService.getToken();
+    this.questionService.getCategories().subscribe((categories: any) => {
+      categories.trivia_categories.forEach((category: Category) => {
+        console.log(category)
+        
+      });
+    });
+  }
 }
