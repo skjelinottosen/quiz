@@ -1,11 +1,11 @@
 # Quiz
 Quiz application written in Angular 
-* Using API (https://opentdb.com/)
-* Using bootstrap 4 fontawesome-free 5
+* Using API (https://opentdb.com/).
+* Using bootstrap 4 fontawesome-free 5.
 
+### Application shots
 
-
-## Category
+### Category
 ![](/src/assets/application-shots/category.png)
 
 ### Questions
