@@ -31,7 +31,7 @@ section{
 }
 
 .card{
-    width: 50%;
+    width: 30%;
     margin: 0.1rem;
     border-radius: 4px;
     box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
@@ -53,4 +53,18 @@ section{
 .card h3{
   font-weight: 600;
 }
+
+img {
+    object-fit: cover;
+}
+
+.navigate {
+    margin-top: 3rem;
+    color:gray;
+}
+
+    .navigate:hover {
+        color: lightskyblue;
+        cursor: pointer;
+    }
 

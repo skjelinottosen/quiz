@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, ɵConsole, } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OpenTDBResponse } from 'src/app/models/open-tdb-response';
 import { Question } from 'src/app/models/question';
@@ -13,10 +13,7 @@ import { ScoreService } from 'src/app/shared/services/score.service';
 export class QuestionComponent implements OnInit {
 
   category: number;
-  type: string;
-  difficulity: string;
-  numberOfQuestions: number;
-
+  amount: number;
   questions: Question[] = [];
   currentQuestion: Question;
   currentQuestionCount: number;
@@ -24,9 +21,13 @@ export class QuestionComponent implements OnInit {
   incorrectAnswers: string[];
   alternatives: string[];
   score: number;
+  isLoading: boolean = true;
 
-
-  constructor(private questionService: QuestionService, private scoreService: ScoreService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private questionService: QuestionService,
+    private scoreService: ScoreService,
+    private route: ActivatedRoute,
+    private router: Router) {
 
   }
 
@@ -34,32 +35,35 @@ export class QuestionComponent implements OnInit {
     this.route.params
     .subscribe(
       (params: Params) => {
+        this.amount = params['amount'];
         this.category = +params['category'];
-        this.type  = params['typeofquestions'];
-        this.difficulity = params['difficulity'];
-        this.numberOfQuestions = params['numberofquestions']
       }
     );
-    this.getAllQuestions(this.category, this.type, this.difficulity, this.numberOfQuestions);
-
+    this.getAllQuestions(this.amount, this.category);
   }
 
-  getAllQuestions(category: number, type: string, difficulity: string, numberOfQuestions: number): void{
-    this.questionService.getQuestions(category, type, difficulity, numberOfQuestions).subscribe( response => {
+  getAllQuestions(amount: number, category: number): void{
+    this.questionService.getQuestions(amount, category).subscribe( response => {
       //Code 0: Success Returned results successfully.
       if (response.response_code === 0){
         this.questions = response.results;
         this.currentQuestionCount = 1;
-        this.numberOfQuestions = this.questions.length;
+        this.amount = this.questions.length;
         this.score = 0;
-        this.scoreService.setMaxScore(this.numberOfQuestions);
+        this.scoreService.setMaxScore(this.amount);
         this.getNextQuestion(1);
       }
+      if (response.response_code === 1 ){
+        this.getAllQuestions(--this.amount, this.category);
+      }
+      this.isLoading = false;
     });
   }
+
   getNextQuestion(currentQuestionCount: number): void{
-    if (currentQuestionCount <= this.numberOfQuestions) {
-      this.currentQuestion = this.questions[currentQuestionCount];
+   
+    if (currentQuestionCount <= this.amount) {
+      this.currentQuestion = this.questions[currentQuestionCount-1];
       this.correctAnswer = this.currentQuestion.correct_answer;
       this.incorrectAnswers = this.currentQuestion.incorrect_answers;
       const unshuffledAlternatives = this.incorrectAnswers;
@@ -80,6 +84,10 @@ export class QuestionComponent implements OnInit {
         this.scoreService.addPoints();
       }
       this.getNextQuestion(++this.currentQuestionCount);
+  }
+
+  onNavigateToMenu(): void{
+    this.router.navigate(['/categories']);
   }
 
 }

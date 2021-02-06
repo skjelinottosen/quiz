@@ -12,18 +12,17 @@ import { ScoreService } from 'src/app/shared/services/score.service';
 export class ScoreComponent implements OnInit {
   finalScore: number;
   maxPoints: number;
-  scoreSubscription: Subscription;
-
+  
   constructor(private scoreService: ScoreService, private route: ActivatedRoute, private router: Router) {
     this.getMaxPoints();
     this.getScore();
   }
 
   ngOnInit(): void {
+
   }
 
   ngOnDestroy(): void{
-    //this.scoreSubscription.unsubscribe();
   }
 
   getScore(){
@@ -36,5 +35,4 @@ export class ScoreComponent implements OnInit {
   onNavigateToMenu(): void{
     this.router.navigate(['/categories']);
   }
-
 }

@@ -9,16 +9,9 @@ import { QuestionService } from './shared/services/question.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private questionService: QuestionService){
+  constructor(){
   }
-  
+
   ngOnInit(): void {
-    this.questionService.getToken();
-    this.questionService.getCategories().subscribe((categories: any) => {
-      categories.trivia_categories.forEach((category: Category) => {
-        console.log(category)
-        
-      });
-    });
   }
 }

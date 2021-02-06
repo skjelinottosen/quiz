@@ -21,6 +21,9 @@ export class QuestionService {
     this.http.get<OpenTDbToken>(`${environment.opentdbApi.retrieveTokenUrl}`).subscribe(
       (response: OpenTDbToken) => {
         this.token = response.token;
+    },
+    (error) => {
+  
     });
   }
 
@@ -36,8 +39,8 @@ export class QuestionService {
   }
   */ 
 
-getQuestions(category: number, type: string, difficulity: string, numberOfQuestions: number): Observable<OpenTDBResponse>{
-  return this.http.get<OpenTDBResponse>(`${environment.opentdbApi.opentdbBaseUrl}api.php?amount=${numberOfQuestions}&category=${category}&difficulty=${difficulity}&type=${type}`);
+getQuestions(amount: number, category: number): Observable<OpenTDBResponse>{
+  return this.http.get<OpenTDBResponse>(`${environment.opentdbApi.opentdbBaseUrl}api.php?amount=${amount}&category=${category}&difficulty=easy`);
 }
 
 

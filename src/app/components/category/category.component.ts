@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class CategoryComponent implements OnInit {
 
   categories: Category[] = [];
+  isLoading = true;
   constructor(private questionService: QuestionService, private route: ActivatedRoute,
     private router: Router){
   }
@@ -22,14 +23,12 @@ export class CategoryComponent implements OnInit {
     this.questionService.getToken();
     this.questionService.getCategories().subscribe((categories: any) => {
       this.categories = categories.trivia_categories.sort((category1, category2) => (category1.name > category2.name) ? 1 : -1);
-
-      categories.trivia_categories.forEach((category: Category) => {
-      });
+      this.isLoading = false;
     });
   }
 
   onCategorySelected(category: Category): void{
-    this.router.navigate(['/options/typeofquestions', category.id]);
+    const amount = 10;
+    this.router.navigate(['questions', amount, category.id]);
   }
-
 }

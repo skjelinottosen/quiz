@@ -1,10 +1,15 @@
+<main *ngIf="!isLoading; else loading">
 <h1 class="display-4">Select a category</h1>
 <section class="container-fluid main-container d-flex flex-wrap justify-content-center">
     <div class="card p-2 w-25" *ngFor="let category of categories" (click)="onCategorySelected(category)">
-    <div class="card-body ">
+    <div class="card-body text-center">
       <h5 class="card-title"> {{ category.name }}</h5>
     </div>
   </div>
 </section>
+</main>
+<ng-template #loading >
+  <i class="fas fa-circle-notch fa-spin fa-2x spinner" spin ></i>
+</ng-template>
 
 
