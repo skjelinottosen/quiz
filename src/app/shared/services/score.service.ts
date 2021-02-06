@@ -1,8 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
-import { HttpClient} from '@angular/common/http';
-import { Token } from '@angular/compiler/src/ml_parser/lexer';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({
@@ -11,7 +7,7 @@ import { Subject } from 'rxjs/internal/Subject';
 
   export class ScoreService {
 
-    constructor(private http: HttpClient) { }
+    constructor() { }
 
     // Observable source
     private pointSource = new Subject<number>();
@@ -24,13 +20,13 @@ import { Subject } from 'rxjs/internal/Subject';
     points = 0;
     maxPoints: number;
 
-    addPoints(): void{
+    addPoints(): void {
         this.points++;
         this.pointSource.next(this.points);
     }
 
-    getScore():number {
-        return  this.points;
+    getScore(): number {
+        return this.points;
     }
     setMaxScore(maxPoints: number): void {
         this.maxPoints = maxPoints;
@@ -40,4 +36,4 @@ import { Subject } from 'rxjs/internal/Subject';
     getMaxPoints(): number {
         return this.maxPoints;
     }
-  }
+}

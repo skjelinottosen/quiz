@@ -1,6 +1,5 @@
 import { Component, OnInit, ɵConsole, } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OpenTDBResponse } from 'src/app/models/open-tdb-response';
 import { Question } from 'src/app/models/question';
 import { QuestionService } from 'src/app/shared/services/question.service';
 import { ScoreService } from 'src/app/shared/services/score.service';
@@ -21,14 +20,13 @@ export class QuestionComponent implements OnInit {
   incorrectAnswers: string[];
   alternatives: string[];
   score: number;
-  isLoading: boolean = true;
+  isLoading = true;
 
   constructor(
     private questionService: QuestionService,
     private scoreService: ScoreService,
     private route: ActivatedRoute,
     private router: Router) {
-
   }
 
   ngOnInit(): void {
@@ -44,7 +42,6 @@ export class QuestionComponent implements OnInit {
 
   getAllQuestions(amount: number, category: number): void{
     this.questionService.getQuestions(amount, category).subscribe( response => {
-      //Code 0: Success Returned results successfully.
       if (response.response_code === 0){
         this.questions = response.results;
         this.currentQuestionCount = 1;
@@ -61,9 +58,8 @@ export class QuestionComponent implements OnInit {
   }
 
   getNextQuestion(currentQuestionCount: number): void{
-   
     if (currentQuestionCount <= this.amount) {
-      this.currentQuestion = this.questions[currentQuestionCount-1];
+      this.currentQuestion = this.questions[currentQuestionCount - 1];
       this.correctAnswer = this.currentQuestion.correct_answer;
       this.incorrectAnswers = this.currentQuestion.incorrect_answers;
       const unshuffledAlternatives = this.incorrectAnswers;
@@ -78,7 +74,6 @@ export class QuestionComponent implements OnInit {
       this.router.navigate(['/score']);
     }
   }
-
   onSelectAnswer(answer: string): void{
       if (answer === this.correctAnswer){
         this.scoreService.addPoints();
@@ -89,5 +84,4 @@ export class QuestionComponent implements OnInit {
   onNavigateToMenu(): void{
     this.router.navigate(['/categories']);
   }
-
 }

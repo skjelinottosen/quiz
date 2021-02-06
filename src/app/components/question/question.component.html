@@ -1,14 +1,14 @@
 <main *ngIf="!isLoading; else loading">
   <h1 class="display-4">Question {{currentQuestionCount }} of {{amount}}</h1>
     <section class="container-fluid main-container d-flex flex-wrap justify-content-center" >
-      <div class="text-center w-75">
+      <div class="text-center w-75 question">
         <h3 class="mb-5" [innerHtml]="currentQuestion?.question | decodeHtmlEntities"> {{ currentQuestion?.question  }}</h3>
       </div>
       <div class="container-fluid main-container d-flex flex-wrap justify-content-center" >
         <div class="card p-0 " *ngFor="let alternative of alternatives" (click)="onSelectAnswer(alternative)">
-        <div class="card-body  text-center">
-          <h5 class="card-title" [innerHtml]="alternative | decodeHtmlEntities"> {{ alternative }}</h5>
-        </div>
+          <div class="card-body  text-center">
+            <h5 class="card-title" [innerHtml]="alternative | decodeHtmlEntities"> {{ alternative }}</h5>
+          </div>
         </div>
       </div>
     </section>
