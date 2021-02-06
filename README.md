@@ -1,4 +1,19 @@
 # Quiz
+Quiz application written in Angular 
+* Using API (https://opentdb.com/)
+* Using bootstrap 4 fontawesome-free 5
+
+
+
+## Category
+![](/src/assets/application-shots/category.png)
+
+### Questions
+![](/src/assets/application-shots/question.png)
+
+### Scoreboard
+![](/src/assets/application-shots/scoreboard.png)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
